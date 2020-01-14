@@ -1,0 +1,47 @@
+<div>
+    <div>
+        <h1>{{ title }}</h1>
+    </div>
+    <div>
+        <form action="/todos/insert/" method="post">
+            <input type="text" name='work' placeholder="work">
+            <input type="text" name="where" placeholder="where">
+            <button>Add</button>
+        </form>
+        <br>
+        {{# if update.exist}}
+            {{# each update.updateData as |val index|}}
+                <form action="/todos/update/" method="post">
+                    <input type="text" value="{{val.work}}" name='work' placeholder="work">
+                    <input type="text" value="{{val.where}}" name="where" placeholder="where">
+                    <input type="hidden" value="{{val._id}}" name="id" >
+                    <button>Update</button>
+                </form>
+            {{/each }}
+        {{/if}}
+        
+        <br>
+        
+        <table>
+            <tr>
+                <th>#</th>
+                <th>work</th>
+                <th>where</th>
+                <th>Actions</th>
+            </tr>
+            {{# each todos as |val index|}}
+
+            <tr>
+                <td>{{index}}</td>
+                <td>{{val.work}}</td>
+                <td>{{val.where}}</td>
+                <td>
+                    <a href="/todos/toUpdateFrom/{{val._id}}">edit</a> |
+                    <a href="/todos/removeTodo/{{val._id}}" >delete</a>
+                </td>
+            </tr>
+
+            {{/each }}
+        </table>
+    </div>
+</div>
